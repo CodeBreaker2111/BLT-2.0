@@ -1,0 +1,32 @@
+Lines without a semicolon at the beggining are comments. Place a semicolon at the beggining to make a line of code.
+
+var says it's a variable, first attribute: 0 means to create a new variable, second attribute: 0 means integer, third attribute: null is placeholder text since variable is new, last attribute: 2 is value.
+;var 0 0 null 2
+;var 0 0 null 1
+
+second attribute: 1 means the value is a string.
+;var 0 1 null Hello World!
+
+print says to print to the screen, first attribute: 0 says the value is not a variable, and last attribute: Hello vute Chelsie! is the value.
+;print 0 Hello cute Chelsie!
+
+wait says to wait time, first attribute: 1 says the value is a variable, and last attribute: 0 is the variable: 2
+;wait 1 0
+
+;print 0 Hello cute Rizo!
+
+;print 0 \n
+;wait 1 1
+
+first attribute: 1 says it is a variable, and last attribute: 2 is the variable: Hello World!
+;print 1 2
+
+first attribute: 1 says this variable is not a new variable, and the third attribute: 2 is the variable to change: Hello World!
+;var 1 1 2 Hello Big City!
+;print 1 2
+
+;print 0 Please type something
+
+
+;var 0 2
+;print 1 3
