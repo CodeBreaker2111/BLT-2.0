@@ -27,6 +27,9 @@ first attribute: 1 says this variable is not a new variable, and the third attri
 
 ;print 0 Please type something
 
-
+The second attribute: 2, is saying that the variable is taking user input.
 ;var 0 2
 ;print 1 3
+
+This doesn't do much because it is at the end of the program, but break ends the program.
+;break

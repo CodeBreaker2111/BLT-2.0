@@ -112,6 +112,7 @@ def compile_python(IcodeLines, Opath):
             
             if ItokenCode[2] == "2":
                 if ItokenCode[1] == "0":
+                    variables.append("")
                     Ocode = Ocode + "\n    v{} = input()".format(len(variables) - 1, len(variables) - 1)
                 elif ItokenCode[1] == "1":
                     try:
@@ -213,7 +214,8 @@ def compile_cpp(IcodeLines, Opath, machine_code):
             
             if ItokenCode[2] == "2":
                 if ItokenCode[1] == "0":
-                    Ocode = Ocode + "\n    string v{} = \"\";\n    cin << v{};".format(len(variables) - 1, len(variables) - 1)
+                    variables.append("")
+                    Ocode = Ocode + "\n    string v{} = \"\";\n    cin >> v{};".format(len(variables) - 1, len(variables) - 1)
                 elif ItokenCode[1] == "1":
                     try:
                         variables[int(ItokenCode[3])] = input()

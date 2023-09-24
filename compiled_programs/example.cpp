@@ -17,7 +17,8 @@ int main() {
     v2 = " Hello Big City!";
     cout << v2 << endl;
     cout << " Please type something" << endl;
-    string v2 = "";
-    cin << v2;
+    string v3 = "";
+    cin >> v3;
     cout << v3 << endl;
+    return 0;
 }
