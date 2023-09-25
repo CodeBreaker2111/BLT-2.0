@@ -12,13 +12,12 @@ print says to print to the screen, first attribute: 0 says the value is not a va
 
 wait says to wait time, first attribute: 1 says the value is a variable, and last attribute: 0 is the variable: 2
 ;wait 1 0
-
 ;print 0 0 Hello cute Rizo!
 
 ;print 0 0 \n
 ;wait 1 1
 
-first attribute: 1 says it is a variable, and last attribute: 2 is the variable: Hello World!
+first attribute: 1 says it is a variable, the second attribute: 0 is aying that the variable is a string, and last attribute: 2 is the variable: Hello World!
 ;print 1 0 2
 
 first attribute: 1 says this variable is not a new variable, and the third attribute: 2 is the variable to change: Hello World!
@@ -32,18 +31,26 @@ The second attribute: 2, is saying that the variable is taking user input.
 ;print 1 0 3
 
 ;var 0 0 null 0
+
+add says to use addition the first and third attributes: 0 say that both of the numbers are not variables, the second and fourth attributes: 50 are the values of the numbers, and the last attribute: 4 is the variable to write the answer to.
 ;add 0 50 0 50 4
 ;print 1 1 4
 
 ;var 0 1 4 0
+
+subtract says to use subtraction
 ;subtract 0 678 0 159 4
 ;print 1 1 4
 
 ;var 0 1 4 0
+
+multiply says to use multiplication
 ;multiply 0 50 0 50 4
 ;print 1 1 4
 
 ;var 0 1 4 0
+
+divide says to use division
 ;divide 0 50 0 50 4
 ;print 1 1 4
 
