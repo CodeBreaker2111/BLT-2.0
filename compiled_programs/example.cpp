@@ -16,9 +16,18 @@ int main() {
     cout << v2 << endl;
     v2 = " Hello Big City!";
     cout << v2 << endl;
-    cout << " Please type something" << endl;
+    cout << " type something" << endl;
     string v3 = "";
     cin >> v3;
     cout << v3 << endl;
+    int v4 = 0;
+    v4 = 50 + 50;
+    cout << to_string(v4) << endl;
+    v4 = 678 - 159;
+    cout << to_string(v4) << endl;
+    v4 = 50 * 50;
+    cout << to_string(v4) << endl;
+    v4 = 50 / 50;
+    cout << to_string(v4) << endl;
     return 0;
 }

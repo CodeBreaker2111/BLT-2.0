@@ -40,7 +40,7 @@ def compile_python(IcodeLines, Opath):
 
         if ItokenCode[0] == "print":
             if ItokenCode[1] == "0":
-                if len(ItokenCode) > 3:
+                if len(ItokenCode) > 4:
 
                     Print = ""
                     iteration = 0
@@ -48,16 +48,16 @@ def compile_python(IcodeLines, Opath):
                     for i in ItokenCode:
                         iteration += 1
 
-                        if iteration >= 3:
+                        if iteration >= 4:
                             Print = Print + " " + i
                     
                     Ocode = Ocode + "\n    print(\"{}\")".format(Print)
                 else:
-                    if ItokenCode[2] == "\n":
+                    if ItokenCode[3] == "\n":
                         Ocode = Ocode + "\n    print(\"\n\")"
             
             if ItokenCode[1] == "1":
-                Ocode = Ocode + "\n    print({})".format("v" + ItokenCode[2])
+                Ocode = Ocode + "\n    print({})".format("v" + ItokenCode[3])
         
         if ItokenCode[0] == "wait":
             if ItokenCode[1] == "0":
@@ -125,6 +125,110 @@ def compile_python(IcodeLines, Opath):
         
         if ItokenCode[0] == "break":
             Ocode = Ocode + "\n    return \"break\""
+        
+        if ItokenCode[0] == "add":
+            num1 = 0
+            num2 = 0
+            answer = 0
+
+            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+
+            if ItokenCode[1] == "0":
+                num1 = int(ItokenCode[2])
+                Ocode = Ocode + " {}".format(ItokenCode[2])
+            if ItokenCode[1] == "1":
+                num1 = data.variables[int(ItokenCode[2])]
+                Ocode = Ocode + " v{}".format(ItokenCode[2])
+            
+            Ocode = Ocode + " +"
+            
+            if ItokenCode[3] == "0":
+                num2 = int(ItokenCode[4])
+                Ocode = Ocode + " {}".format(ItokenCode[4])
+            if ItokenCode[3] == "1":
+                num2 = data.variables[int(ItokenCode[4])]
+                Ocode = Ocode + " v{}".format(ItokenCode[4])
+            
+            answer = num1 + num2
+            variables[int(ItokenCode[5])] = answer
+        
+        if ItokenCode[0] == "subtract":
+            num1 = 0
+            num2 = 0
+            answer = 0
+
+            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+
+            if ItokenCode[1] == "0":
+                num1 = int(ItokenCode[2])
+                Ocode = Ocode + " {}".format(ItokenCode[2])
+            if ItokenCode[1] == "1":
+                num1 = data.variables[int(ItokenCode[2])]
+                Ocode = Ocode + " v{}".format(ItokenCode[2])
+            
+            Ocode = Ocode + " -"
+            
+            if ItokenCode[3] == "0":
+                num2 = int(ItokenCode[4])
+                Ocode = Ocode + " {}".format(ItokenCode[4])
+            if ItokenCode[3] == "1":
+                num2 = data.variables[int(ItokenCode[4])]
+                Ocode = Ocode + " v{}".format(ItokenCode[4])
+            
+            answer = num1 - num2
+            variables[int(ItokenCode[5])] = answer
+        
+        if ItokenCode[0] == "multiply":
+            num1 = 0
+            num2 = 0
+            answer = 0
+
+            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+
+            if ItokenCode[1] == "0":
+                num1 = int(ItokenCode[2])
+                Ocode = Ocode + " {}".format(ItokenCode[2])
+            if ItokenCode[1] == "1":
+                num1 = data.variables[int(ItokenCode[2])]
+                Ocode = Ocode + " v{}".format(ItokenCode[2])
+            
+            Ocode = Ocode + " *"
+            
+            if ItokenCode[3] == "0":
+                num2 = int(ItokenCode[4])
+                Ocode = Ocode + " {}".format(ItokenCode[4])
+            if ItokenCode[3] == "1":
+                num2 = data.variables[int(ItokenCode[4])]
+                Ocode = Ocode + " v{}".format(ItokenCode[4])
+            
+            answer = num1 * num2
+            variables[int(ItokenCode[5])] = answer
+        
+        if ItokenCode[0] == "divide":
+            num1 = 0
+            num2 = 0
+            answer = 0
+
+            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+
+            if ItokenCode[1] == "0":
+                num1 = int(ItokenCode[2])
+                Ocode = Ocode + " {}".format(ItokenCode[2])
+            if ItokenCode[1] == "1":
+                num1 = data.variables[int(ItokenCode[2])]
+                Ocode = Ocode + " v{}".format(ItokenCode[2])
+            
+            Ocode = Ocode + " /"
+            
+            if ItokenCode[3] == "0":
+                num2 = int(ItokenCode[4])
+                Ocode = Ocode + " {}".format(ItokenCode[4])
+            if ItokenCode[3] == "1":
+                num2 = data.variables[int(ItokenCode[4])]
+                Ocode = Ocode + " v{}".format(ItokenCode[4])
+            
+            answer = num1 / num2
+            variables[int(ItokenCode[5])] = answer
     
     Ocode = Ocode + "\n\nmain()"
     print("\nResult Code:\n\n" + Ocode)
@@ -142,7 +246,7 @@ def compile_cpp(IcodeLines, Opath, machine_code):
 
         if ItokenCode[0] == "print":
             if ItokenCode[1] == "0":
-                if len(ItokenCode) > 3:
+                if len(ItokenCode) > 4:
 
                     Print = ""
                     iteration = 0
@@ -150,7 +254,7 @@ def compile_cpp(IcodeLines, Opath, machine_code):
                     for i in ItokenCode:
                         iteration += 1
 
-                        if iteration >= 3:
+                        if iteration >= 4:
                             Print = Print + " " + i
                     
                     Ocode = Ocode + "\n    cout << \"{}\" << endl;".format(Print)
@@ -159,7 +263,10 @@ def compile_cpp(IcodeLines, Opath, machine_code):
                         Ocode = Ocode + "\n    cout << endl;"
             
             if ItokenCode[1] == "1":
-                Ocode = Ocode + "\n    cout << {} << endl;".format("v" + ItokenCode[2])
+                if ItokenCode[2] == "1":
+                    Ocode = Ocode + "\n    cout << to_string({}) << endl;".format("v" + ItokenCode[3])
+                elif ItokenCode[2] == "0":
+                    Ocode = Ocode + "\n    cout << {} << endl;".format("v" + ItokenCode[3])
         
         if ItokenCode[0] == "wait":
             if ItokenCode[1] == "0":
@@ -227,6 +334,118 @@ def compile_cpp(IcodeLines, Opath, machine_code):
         
         if ItokenCode[0] == "break":
             Ocode = Ocode + "\n    return 0;"
+        
+        if ItokenCode[0] == "add":
+            num1 = 0
+            num2 = 0
+            answer = 0
+
+            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+
+            if ItokenCode[1] == "0":
+                num1 = int(ItokenCode[2])
+                Ocode = Ocode + " {}".format(ItokenCode[2])
+            if ItokenCode[1] == "1":
+                num1 = data.variables[int(ItokenCode[2])]
+                Ocode = Ocode + " v{}".format(ItokenCode[2])
+            
+            Ocode = Ocode + " +"
+            
+            if ItokenCode[3] == "0":
+                num2 = int(ItokenCode[4])
+                Ocode = Ocode + " {}".format(ItokenCode[4])
+            if ItokenCode[3] == "1":
+                num2 = data.variables[int(ItokenCode[4])]
+                Ocode = Ocode + " v{}".format(ItokenCode[4])
+            
+            answer = num1 + num2
+            variables[int(ItokenCode[5])] = answer
+
+            Ocode = Ocode + ";"
+        
+        if ItokenCode[0] == "subtract":
+            num1 = 0
+            num2 = 0
+            answer = 0
+
+            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+
+            if ItokenCode[1] == "0":
+                num1 = int(ItokenCode[2])
+                Ocode = Ocode + " {}".format(ItokenCode[2])
+            if ItokenCode[1] == "1":
+                num1 = data.variables[int(ItokenCode[2])]
+                Ocode = Ocode + " v{}".format(ItokenCode[2])
+            
+            Ocode = Ocode + " -"
+            
+            if ItokenCode[3] == "0":
+                num2 = int(ItokenCode[4])
+                Ocode = Ocode + " {}".format(ItokenCode[4])
+            if ItokenCode[3] == "1":
+                num2 = data.variables[int(ItokenCode[4])]
+                Ocode = Ocode + " v{}".format(ItokenCode[4])
+            
+            answer = num1 - num2
+            variables[int(ItokenCode[5])] = answer
+
+            Ocode = Ocode + ";"
+        
+        if ItokenCode[0] == "multiply":
+            num1 = 0
+            num2 = 0
+            answer = 0
+
+            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+
+            if ItokenCode[1] == "0":
+                num1 = int(ItokenCode[2])
+                Ocode = Ocode + " {}".format(ItokenCode[2])
+            if ItokenCode[1] == "1":
+                num1 = data.variables[int(ItokenCode[2])]
+                Ocode = Ocode + " v{}".format(ItokenCode[2])
+            
+            Ocode = Ocode + " *"
+            
+            if ItokenCode[3] == "0":
+                num2 = int(ItokenCode[4])
+                Ocode = Ocode + " {}".format(ItokenCode[4])
+            if ItokenCode[3] == "1":
+                num2 = data.variables[int(ItokenCode[4])]
+                Ocode = Ocode + " v{}".format(ItokenCode[4])
+            
+            answer = num1 * num2
+            variables[int(ItokenCode[5])] = answer
+
+            Ocode = Ocode + ";"
+        
+        if ItokenCode[0] == "divide":
+            num1 = 0
+            num2 = 0
+            answer = 0
+
+            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+
+            if ItokenCode[1] == "0":
+                num1 = int(ItokenCode[2])
+                Ocode = Ocode + " {}".format(ItokenCode[2])
+            if ItokenCode[1] == "1":
+                num1 = data.variables[int(ItokenCode[2])]
+                Ocode = Ocode + " v{}".format(ItokenCode[2])
+            
+            Ocode = Ocode + " /"
+            
+            if ItokenCode[3] == "0":
+                num2 = int(ItokenCode[4])
+                Ocode = Ocode + " {}".format(ItokenCode[4])
+            if ItokenCode[3] == "1":
+                num2 = data.variables[int(ItokenCode[4])]
+                Ocode = Ocode + " v{}".format(ItokenCode[4])
+            
+            answer = num1 / num2
+            variables[int(ItokenCode[5])] = answer
+
+            Ocode = Ocode + ";"
     
     Ocode = Ocode + "\n}"
 

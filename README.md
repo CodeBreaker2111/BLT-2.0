@@ -2,7 +2,7 @@
 
 ### Sorry about the README not being very readable. I also probably have a lot of typoes. I'm not good at spelling.
 
-## Tutorial
+## Tutorial (Outdated)
 
 ### Coding
 

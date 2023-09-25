@@ -11,9 +11,18 @@ def main():
     print(v2)
     v2 = " Hello Big City!"
     print(v2)
-    print(" Please type something")
+    print(" type something")
     v3 = input()
     print(v3)
+    v4 = 0
+    v4 = 50 + 50
+    print(v4)
+    v4 = 678 - 159
+    print(v4)
+    v4 = 50 * 50
+    print(v4)
+    v4 = 50 / 50
+    print(v4)
     return "break"
 
 main()
