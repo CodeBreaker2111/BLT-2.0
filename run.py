@@ -26,7 +26,7 @@ def interpret(code):
         tokenCode = code[lineNum].split()
 
         if tokenCode[0] == "print":
-            if tokenCode[1] == "0":
+            if tokenCode[1] == "string":
                 if len(tokenCode) > 4:
 
                     Print = ""
@@ -43,21 +43,21 @@ def interpret(code):
                     if tokenCode[2] == "\n":
                         print("\n")
             
-            if tokenCode[1] == "1":
+            if tokenCode[1] == "variable":
                 print(data.variables[int(tokenCode[3])])
         
         if tokenCode[0] == "wait":
-            if tokenCode[1] == "0":
-                time.sleep(int(tokenCode[2]))
+            if tokenCode[2] == "seconds":
+                time.sleep(int(tokenCode[1]))
             
-            if tokenCode[1] == "1":
+            if tokenCode[1] == "variable":
                 time.sleep(data.variables[int(tokenCode[2])])
         
         if tokenCode[0] == "var":
-            if tokenCode[2] == "0":
-                if tokenCode[1] == "0":
+            if tokenCode[2] == "int":
+                if tokenCode[1] == "not-exists":
                     data.variables.append(int(tokenCode[4]))
-                elif tokenCode[1] == "1":
+                elif tokenCode[1] == "exists":
                     try:
                         data.variables[int(tokenCode[3])] = int(tokenCode[4])
                     except IndexError as E:
@@ -66,7 +66,7 @@ def interpret(code):
                         print(E)
                         return E
                 
-            if tokenCode[2] == "1":
+            if tokenCode[2] == "string":
                 if len(tokenCode) > 5:
 
                     var = ""
@@ -78,9 +78,9 @@ def interpret(code):
                         if iteration >= 5:
                             var = var + " " + i
                         
-                    if tokenCode[1] == "0":
+                    if tokenCode[1] == "not-exists":
                         data.variables.append(var)
-                    else:
+                    elif tokenCode[1] == "exists":
                         try:
                             data.variables[int(tokenCode[3])] = var
                         except IndexError as E:
@@ -89,10 +89,10 @@ def interpret(code):
                             print(E)
                             return E
             
-            if tokenCode[2] == "2":
-                if tokenCode[1] == "0":
+            if tokenCode[2] == "user-input":
+                if tokenCode[1] == "not-exists":
                     data.variables.append(input())
-                elif tokenCode[1] == "1":
+                elif tokenCode[1] == "exists":
                     try:
                         data.variables[int(tokenCode[3])] = input()
                     except IndexError as E:
@@ -109,14 +109,14 @@ def interpret(code):
             num2 = 0
             answer = 0
 
-            if tokenCode[1] == "0":
+            if tokenCode[1] == "int":
                 num1 = int(tokenCode[2])
-            if tokenCode[1] == "1":
+            if tokenCode[1] == "variable":
                 num1 = data.variables[int(tokenCode[2])]
             
-            if tokenCode[3] == "0":
+            if tokenCode[3] == "int":
                 num2 = int(tokenCode[4])
-            if tokenCode[3] == "1":
+            if tokenCode[3] == "variable":
                 num2 = data.variables[int(tokenCode[4])]
             
             answer = num1 + num2
@@ -127,14 +127,14 @@ def interpret(code):
             num2 = 0
             answer = 0
 
-            if tokenCode[1] == "0":
+            if tokenCode[1] == "int":
                 num1 = int(tokenCode[2])
-            if tokenCode[1] == "1":
+            if tokenCode[1] == "variable":
                 num1 = data.variables[int(tokenCode[2])]
             
-            if tokenCode[3] == "0":
+            if tokenCode[3] == "int":
                 num2 = int(tokenCode[4])
-            if tokenCode[3] == "1":
+            if tokenCode[3] == "variable":
                 num2 = data.variables[int(tokenCode[4])]
             
             answer = num1 - num2
@@ -145,14 +145,14 @@ def interpret(code):
             num2 = 0
             answer = 0
 
-            if tokenCode[1] == "0":
+            if tokenCode[1] == "int":
                 num1 = int(tokenCode[2])
-            if tokenCode[1] == "1":
+            if tokenCode[1] == "variable":
                 num1 = data.variables[int(tokenCode[2])]
             
-            if tokenCode[3] == "0":
+            if tokenCode[3] == "int":
                 num2 = int(tokenCode[4])
-            if tokenCode[3] == "1":
+            if tokenCode[3] == "variable":
                 num2 = data.variables[int(tokenCode[4])]
             
             answer = num1 * num2
@@ -163,14 +163,14 @@ def interpret(code):
             num2 = 0
             answer = 0
 
-            if tokenCode[1] == "0":
+            if tokenCode[1] == "int":
                 num1 = int(tokenCode[2])
-            if tokenCode[1] == "1":
+            if tokenCode[1] == "variable":
                 num1 = data.variables[int(tokenCode[2])]
             
-            if tokenCode[3] == "0":
+            if tokenCode[3] == "int":
                 num2 = int(tokenCode[4])
-            if tokenCode[3] == "1":
+            if tokenCode[3] == "variable":
                 num2 = data.variables[int(tokenCode[4])]
             
             answer = num1 / num2

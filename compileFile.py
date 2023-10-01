@@ -39,7 +39,7 @@ def compile_python(IcodeLines, Opath):
         ItokenCode = line.split()
 
         if ItokenCode[0] == "print":
-            if ItokenCode[1] == "0":
+            if ItokenCode[1] == "string":
                 if len(ItokenCode) > 4:
 
                     Print = ""
@@ -56,23 +56,23 @@ def compile_python(IcodeLines, Opath):
                     if ItokenCode[3] == "\n":
                         Ocode = Ocode + "\n    print(\"\n\")"
             
-            if ItokenCode[1] == "1":
+            if ItokenCode[1] == "variable":
                 Ocode = Ocode + "\n    print({})".format("v" + ItokenCode[3])
         
         if ItokenCode[0] == "wait":
-            if ItokenCode[1] == "0":
-                Ocode = Ocode + "\n    time.sleep({})".format(ItokenCode[2])
+            if ItokenCode[2] == "seconds":
+                Ocode = Ocode + "\n    time.sleep({})".format(ItokenCode[1])
             
-            if ItokenCode[1] == "1":
+            if ItokenCode[1] == "variable":
                 Ocode = Ocode + "\n    time.sleep({})".format("v" + ItokenCode[2])
         
         if ItokenCode[0] == "var":
-            if ItokenCode[2] == "0":
-                if ItokenCode[1] == "0":
+            if ItokenCode[2] == "int":
+                if ItokenCode[1] == "not-exists":
                     variables.append(int(ItokenCode[4]))
 
                     Ocode = Ocode + "\n    v{} = {}".format(len(variables) - 1, ItokenCode[4])
-                elif ItokenCode[1] == "1":
+                elif ItokenCode[1] == "exists":
                     try:
                         variables[int(ItokenCode[3])] = int(ItokenCode[4])
 
@@ -83,7 +83,7 @@ def compile_python(IcodeLines, Opath):
                         print(E)
                         return E
                 
-            if ItokenCode[2] == "1":
+            if ItokenCode[2] == "string":
                 if len(ItokenCode) > 5:
 
                     var = ""
@@ -95,11 +95,11 @@ def compile_python(IcodeLines, Opath):
                         if iteration >= 5:
                             var = var + " " + i
                         
-                    if ItokenCode[1] == "0":
+                    if ItokenCode[1] == "not-exists":
                         variables.append(var)
 
                         Ocode = Ocode + "\n    v{} = \"{}\"".format(len(variables) - 1, var)
-                    else:
+                    elif ItokenCode[1] == "exists":
                         try:
                             variables[int(ItokenCode[3])] = var
 
@@ -110,11 +110,11 @@ def compile_python(IcodeLines, Opath):
                             print(E)
                             return E
             
-            if ItokenCode[2] == "2":
-                if ItokenCode[1] == "0":
+            if ItokenCode[2] == "user-input":
+                if ItokenCode[1] == "not-exists":
                     variables.append("")
                     Ocode = Ocode + "\n    v{} = input()".format(len(variables) - 1, len(variables) - 1)
-                elif ItokenCode[1] == "1":
+                elif ItokenCode[1] == "exists":
                     try:
                         variables[int(ItokenCode[3])] = input()
                     except IndexError as E:
@@ -133,19 +133,19 @@ def compile_python(IcodeLines, Opath):
 
             Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
 
-            if ItokenCode[1] == "0":
+            if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
                 Ocode = Ocode + " {}".format(ItokenCode[2])
-            if ItokenCode[1] == "1":
+            if ItokenCode[1] == "variable":
                 num1 = data.variables[int(ItokenCode[2])]
                 Ocode = Ocode + " v{}".format(ItokenCode[2])
             
             Ocode = Ocode + " +"
             
-            if ItokenCode[3] == "0":
+            if ItokenCode[3] == "int":
                 num2 = int(ItokenCode[4])
                 Ocode = Ocode + " {}".format(ItokenCode[4])
-            if ItokenCode[3] == "1":
+            if ItokenCode[3] == "variable":
                 num2 = data.variables[int(ItokenCode[4])]
                 Ocode = Ocode + " v{}".format(ItokenCode[4])
             
@@ -159,19 +159,19 @@ def compile_python(IcodeLines, Opath):
 
             Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
 
-            if ItokenCode[1] == "0":
+            if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
                 Ocode = Ocode + " {}".format(ItokenCode[2])
-            if ItokenCode[1] == "1":
+            if ItokenCode[1] == "variable":
                 num1 = data.variables[int(ItokenCode[2])]
                 Ocode = Ocode + " v{}".format(ItokenCode[2])
             
             Ocode = Ocode + " -"
             
-            if ItokenCode[3] == "0":
+            if ItokenCode[3] == "int":
                 num2 = int(ItokenCode[4])
                 Ocode = Ocode + " {}".format(ItokenCode[4])
-            if ItokenCode[3] == "1":
+            if ItokenCode[3] == "variable":
                 num2 = data.variables[int(ItokenCode[4])]
                 Ocode = Ocode + " v{}".format(ItokenCode[4])
             
@@ -185,19 +185,19 @@ def compile_python(IcodeLines, Opath):
 
             Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
 
-            if ItokenCode[1] == "0":
+            if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
                 Ocode = Ocode + " {}".format(ItokenCode[2])
-            if ItokenCode[1] == "1":
+            if ItokenCode[1] == "variable":
                 num1 = data.variables[int(ItokenCode[2])]
                 Ocode = Ocode + " v{}".format(ItokenCode[2])
             
             Ocode = Ocode + " *"
             
-            if ItokenCode[3] == "0":
+            if ItokenCode[3] == "int":
                 num2 = int(ItokenCode[4])
                 Ocode = Ocode + " {}".format(ItokenCode[4])
-            if ItokenCode[3] == "1":
+            if ItokenCode[3] == "variable":
                 num2 = data.variables[int(ItokenCode[4])]
                 Ocode = Ocode + " v{}".format(ItokenCode[4])
             
@@ -211,19 +211,19 @@ def compile_python(IcodeLines, Opath):
 
             Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
 
-            if ItokenCode[1] == "0":
+            if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
                 Ocode = Ocode + " {}".format(ItokenCode[2])
-            if ItokenCode[1] == "1":
+            if ItokenCode[1] == "variable":
                 num1 = data.variables[int(ItokenCode[2])]
                 Ocode = Ocode + " v{}".format(ItokenCode[2])
             
             Ocode = Ocode + " /"
             
-            if ItokenCode[3] == "0":
+            if ItokenCode[3] == "int":
                 num2 = int(ItokenCode[4])
                 Ocode = Ocode + " {}".format(ItokenCode[4])
-            if ItokenCode[3] == "1":
+            if ItokenCode[3] == "variable":
                 num2 = data.variables[int(ItokenCode[4])]
                 Ocode = Ocode + " v{}".format(ItokenCode[4])
             
@@ -245,7 +245,7 @@ def compile_cpp(IcodeLines, Opath, machine_code):
         ItokenCode = line.split()
 
         if ItokenCode[0] == "print":
-            if ItokenCode[1] == "0":
+            if ItokenCode[1] == "string":
                 if len(ItokenCode) > 4:
 
                     Print = ""
@@ -262,26 +262,26 @@ def compile_cpp(IcodeLines, Opath, machine_code):
                     if ItokenCode[2] == "\n":
                         Ocode = Ocode + "\n    cout << endl;"
             
-            if ItokenCode[1] == "1":
-                if ItokenCode[2] == "1":
+            if ItokenCode[1] == "variable":
+                if ItokenCode[2] == "to-string":
                     Ocode = Ocode + "\n    cout << to_string({}) << endl;".format("v" + ItokenCode[3])
-                elif ItokenCode[2] == "0":
+                elif ItokenCode[2] == "null":
                     Ocode = Ocode + "\n    cout << {} << endl;".format("v" + ItokenCode[3])
         
         if ItokenCode[0] == "wait":
-            if ItokenCode[1] == "0":
-                Ocode = Ocode + "\n    this_thread::sleep_for(chrono::seconds({}));".format(ItokenCode[2])
+            if ItokenCode[2] == "seconds":
+                Ocode = Ocode + "\n    this_thread::sleep_for(chrono::seconds({}));".format(ItokenCode[1])
             
-            if ItokenCode[1] == "1":
+            if ItokenCode[1] == "variable":
                 Ocode = Ocode + "\n    this_thread::sleep_for(chrono::seconds({}));".format("v" + ItokenCode[2])
         
         if ItokenCode[0] == "var":
-            if ItokenCode[2] == "0":
-                if ItokenCode[1] == "0":
+            if ItokenCode[2] == "int":
+                if ItokenCode[1] == "not-exists":
                     variables.append(int(ItokenCode[4]))
 
                     Ocode = Ocode + "\n    int v{} = {};".format(len(variables) - 1, ItokenCode[4])
-                elif ItokenCode[1] == "1":
+                elif ItokenCode[1] == "exists":
                     try:
                         variables[int(ItokenCode[3])] = int(ItokenCode[4])
 
@@ -292,7 +292,7 @@ def compile_cpp(IcodeLines, Opath, machine_code):
                         print(E)
                         return E
                 
-            if ItokenCode[2] == "1":
+            if ItokenCode[2] == "string":
                 if len(ItokenCode) > 5:
 
                     var = ""
@@ -304,11 +304,11 @@ def compile_cpp(IcodeLines, Opath, machine_code):
                         if iteration >= 5:
                             var = var + " " + i
                         
-                    if ItokenCode[1] == "0":
+                    if ItokenCode[1] == "not-exists":
                         variables.append(var)
 
                         Ocode = Ocode + "\n    string v{} = \"{}\";".format(len(variables) - 1, var)
-                    else:
+                    elif ItokenCode[1] == "exists":
                         try:
                             variables[int(ItokenCode[3])] = var
 
@@ -319,11 +319,11 @@ def compile_cpp(IcodeLines, Opath, machine_code):
                             print(E)
                             return E
             
-            if ItokenCode[2] == "2":
-                if ItokenCode[1] == "0":
+            if ItokenCode[2] == "user-input":
+                if ItokenCode[1] == "not-exists":
                     variables.append("")
                     Ocode = Ocode + "\n    string v{} = \"\";\n    cin >> v{};".format(len(variables) - 1, len(variables) - 1)
-                elif ItokenCode[1] == "1":
+                elif ItokenCode[1] == "exists":
                     try:
                         variables[int(ItokenCode[3])] = input()
                     except IndexError as E:
@@ -342,19 +342,19 @@ def compile_cpp(IcodeLines, Opath, machine_code):
 
             Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
 
-            if ItokenCode[1] == "0":
+            if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
                 Ocode = Ocode + " {}".format(ItokenCode[2])
-            if ItokenCode[1] == "1":
+            if ItokenCode[1] == "variable":
                 num1 = data.variables[int(ItokenCode[2])]
                 Ocode = Ocode + " v{}".format(ItokenCode[2])
             
             Ocode = Ocode + " +"
             
-            if ItokenCode[3] == "0":
+            if ItokenCode[3] == "int":
                 num2 = int(ItokenCode[4])
                 Ocode = Ocode + " {}".format(ItokenCode[4])
-            if ItokenCode[3] == "1":
+            if ItokenCode[3] == "variable":
                 num2 = data.variables[int(ItokenCode[4])]
                 Ocode = Ocode + " v{}".format(ItokenCode[4])
             
@@ -370,19 +370,19 @@ def compile_cpp(IcodeLines, Opath, machine_code):
 
             Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
 
-            if ItokenCode[1] == "0":
+            if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
                 Ocode = Ocode + " {}".format(ItokenCode[2])
-            if ItokenCode[1] == "1":
+            if ItokenCode[1] == "variable":
                 num1 = data.variables[int(ItokenCode[2])]
                 Ocode = Ocode + " v{}".format(ItokenCode[2])
             
             Ocode = Ocode + " -"
             
-            if ItokenCode[3] == "0":
+            if ItokenCode[3] == "int":
                 num2 = int(ItokenCode[4])
                 Ocode = Ocode + " {}".format(ItokenCode[4])
-            if ItokenCode[3] == "1":
+            if ItokenCode[3] == "variable":
                 num2 = data.variables[int(ItokenCode[4])]
                 Ocode = Ocode + " v{}".format(ItokenCode[4])
             
@@ -398,19 +398,19 @@ def compile_cpp(IcodeLines, Opath, machine_code):
 
             Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
 
-            if ItokenCode[1] == "0":
+            if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
                 Ocode = Ocode + " {}".format(ItokenCode[2])
-            if ItokenCode[1] == "1":
+            if ItokenCode[1] == "variable":
                 num1 = data.variables[int(ItokenCode[2])]
                 Ocode = Ocode + " v{}".format(ItokenCode[2])
             
             Ocode = Ocode + " *"
             
-            if ItokenCode[3] == "0":
+            if ItokenCode[3] == "int":
                 num2 = int(ItokenCode[4])
                 Ocode = Ocode + " {}".format(ItokenCode[4])
-            if ItokenCode[3] == "1":
+            if ItokenCode[3] == "variable":
                 num2 = data.variables[int(ItokenCode[4])]
                 Ocode = Ocode + " v{}".format(ItokenCode[4])
             
@@ -426,19 +426,19 @@ def compile_cpp(IcodeLines, Opath, machine_code):
 
             Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
 
-            if ItokenCode[1] == "0":
+            if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
                 Ocode = Ocode + " {}".format(ItokenCode[2])
-            if ItokenCode[1] == "1":
+            if ItokenCode[1] == "variable":
                 num1 = data.variables[int(ItokenCode[2])]
                 Ocode = Ocode + " v{}".format(ItokenCode[2])
             
             Ocode = Ocode + " /"
             
-            if ItokenCode[3] == "0":
+            if ItokenCode[3] == "int":
                 num2 = int(ItokenCode[4])
                 Ocode = Ocode + " {}".format(ItokenCode[4])
-            if ItokenCode[3] == "1":
+            if ItokenCode[3] == "variablint":
                 num2 = data.variables[int(ItokenCode[4])]
                 Ocode = Ocode + " v{}".format(ItokenCode[4])
             

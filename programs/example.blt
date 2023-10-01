@@ -1,58 +1,52 @@
 Lines without a semicolon at the beggining are comments. Place a semicolon at the beggining to make a line of code.
 
-var says it's a variable, first attribute: 0 means to create a new variable, second attribute: 0 means integer, third attribute: null is placeholder text since variable is new, last attribute: 2 is value.
-;var 0 0 null 2
-;var 0 0 null 1
+var says it's a variable, first attribute: not-exists means to create a new variable, second attribute: int means integer, third attribute: null is placeholder text since variable is new, last attribute: 2 is value.
+;var not-exists int null 2
+;var not-exists int null 1
 
-second attribute: 1 means the value is a string.
-;var 0 1 null Hello World!
+second attribute: string means the value is a string.
+;var not-exists string null Hello World!
 
-print says to print to the screen, first attribute: 0 says the value is not a variable, and last attribute: Hello vute Chelsie! is the value.
-;print 0 0 Hello cute Chelsie!
+print says to print to the screen, first attribute: string says the value is not a variable but a string, and last attribute: Hello vute Chelsea! is the value.
+;print string null Hello cute Chelsea!
 
-wait says to wait time, first attribute: 1 says the value is a variable, and last attribute: 0 is the variable: 2
-;wait 1 0
-;print 0 0 Hello cute Rizo!
+wait says to wait time, first attribute: variable says the value is a variable, and last attribute: 0 is the variable: 2
+;wait variable 0
+;print string null Hello cute Rizo!
 
-;print 0 0 \n
-;wait 1 1
+;print string null \n
+;wait variable 1
 
-first attribute: 1 says it is a variable, the second attribute: 0 is aying that the variable is a string, and last attribute: 2 is the variable: Hello World!
-;print 1 0 2
+first attribute: variable says it is a variable, the second attribute: null is aying not to convert the variable from int to string (Converting to string is only necisary when compiling to c++ or machine code), and last attribute: 2 is the variable: Hello World!
+;print variable null 2
 
-first attribute: 1 says this variable is not a new variable, and the third attribute: 2 is the variable to change: Hello World!
-;var 1 1 2 Hello Big City!
-;print 1 0 2
+first attribute: exists says this variable is not a new variable, and the third attribute: 2 is the variable to change: Hello World!
+;var exists string 2 Hello Big City!
+;print variable null 2
 
-;print 0 Please type something
+;print string null Please type something
 
-The second attribute: 2, is saying that the variable is taking user input.
-;var 0 2
-;print 1 0 3
+The second attribute: user-input, is saying that the variable is taking user input.
+;var not-exists user-input
+;print variable null 3
 
-;var 0 0 null 0
+;var not-exists int null 0
 
-add says to use addition the first and third attributes: 0 say that both of the numbers are not variables, the second and fourth attributes: 50 are the values of the numbers, and the last attribute: 4 is the variable to write the answer to.
-;add 0 50 0 50 4
-;print 1 1 4
-
-;var 0 1 4 0
+add says to use addition the first and third attributes: int say that both of the numbers are not variables, the second and fourth attributes: 50 are the values of the numbers, and the last attribute: 4 is the variable to write the answer to.
+;add int 50 int 50 4
+;print variable to-string 4
 
 subtract says to use subtraction
-;subtract 0 678 0 159 4
-;print 1 1 4
-
-;var 0 1 4 0
+;subtract int 678 int 159 4
+;print variable to-string 4
 
 multiply says to use multiplication
-;multiply 0 50 0 50 4
-;print 1 1 4
-
-;var 0 1 4 0
+;multiply int 50 int 50 4
+;print variable to-string 4
 
 divide says to use division
-;divide 0 50 0 50 4
-;print 1 1 4
+;divide int 50 int 50 4
+;print variable to-string 4
 
 This doesn't do much because it is at the end of the program, but break ends the program.
 ;break
