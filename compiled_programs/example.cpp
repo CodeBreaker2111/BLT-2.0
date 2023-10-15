@@ -16,7 +16,7 @@ int main() {
     cout << v2 << endl;
     v2 = " Hello Big City!";
     cout << v2 << endl;
-    cout << " Please type something" << endl;
+    cout << " Please type something:" << endl;
     string v3 = "";
     cin >> v3;
     cout << v3 << endl;
@@ -29,5 +29,21 @@ int main() {
     cout << to_string(v4) << endl;
     v4 = 50 / 50;
     cout << to_string(v4) << endl;
+    cout << " Please type something:" << endl;
+    string v5 = "";
+    cin >> v5;
+    cout << " Please type something:" << endl;
+    string v6 = "";
+    cin >> v6;
+    if ( v5 == v6 ) {
+    cout << " You typed the same thing twice!" << endl;
+    this_thread::sleep_for(chrono::seconds(1));
+    cout << " I hope ;)" << endl;
+    }
+    if ( v5 != v6 ) {
+    cout << " You did not typed the same thing twice!" << endl;
+    this_thread::sleep_for(chrono::seconds(1));
+    cout << " I hope ;)" << endl;
+    }
     return 0;
 }

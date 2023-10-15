@@ -8,7 +8,7 @@
 
 #### Basic stuff
 
-The BLT has 8 main commands:
+The BLT has 9 main commands:
 
 1. print: prints text to screen can be variable too
 2. var: stores data including user input
@@ -18,10 +18,12 @@ The BLT has 8 main commands:
 6. subtract: subtracts two numbers and writes the result to a variable
 7. multiply: multiplies two numbers and writes the result to a variable
 8. divide: divides two numbers and writes the result to a variable
+9. if: Does basic logic with two objects like equal to or greater than
 
 This next program here (example.blt) explains some stuff in the comments:
 
 ```Lines without a semicolon at the beggining are comments. Place a semicolon at the beggining to make a line of code.
+
 Lines without a semicolon at the beggining are comments. Place a semicolon at the beggining to make a line of code.
 
 var says it's a variable, first attribute: not-exists means to create a new variable, second attribute: int means integer, third attribute: null is placeholder text since variable is new, last attribute: 2 is value.
@@ -72,6 +74,29 @@ divide says to use division
 ;divide int 50 int 50 4
 ;print variable to-string 4
 
+;print string null Please type something:
+;var not-exists user-input
+
+;print string null Please type something:
+;var not-exists user-input
+
+if says that it is an if statement, attribute 1 and 4: variable, declare that objects 1 and 2 are variables, attributes 2 and 5: 5 and 6 are the values of the two objects, attribute 3: = is saying that the operation is equal to (== is also excepted) and attribute 6: 3, is the length of the if statement in lines.
+;if variable 5 = variable 6 3 { ('{' is not necisary)
+;   print string null You typed the same thing twice!
+
+    attribute 2: seconds says that the wait command is taking an int for an input and not a varaiable and attribute 1: 1 is the number of seconds.
+;   wait 1 seconds
+;   print string null I hope ;)
+
+} is the end of an if statement (only necisary for compiling)
+;}
+
+attribute 3: != is saying that the operation is not equal to.
+;if variable 5 != variable 6 3
+;   print string null You did not typed the same thing twice!
+;   wait 1 seconds
+;   print string null I hope ;)
+;}
 This doesn't do much because it is at the end of the program, but break ends the program.
 ;break
 ```

@@ -24,7 +24,7 @@ first attribute: exists says this variable is not a new variable, and the third 
 ;var exists string 2 Hello Big City!
 ;print variable null 2
 
-;print string null Please type something
+;print string null Please type something:
 
 The second attribute: user-input, is saying that the variable is taking user input.
 ;var not-exists user-input
@@ -47,6 +47,30 @@ multiply says to use multiplication
 divide says to use division
 ;divide int 50 int 50 4
 ;print variable to-string 4
+
+;print string null Please type something:
+;var not-exists user-input
+
+;print string null Please type something:
+;var not-exists user-input
+
+if says that it is an if statement, attribute 1 and 4: variable, declare that objects 1 and 2 are variables, attributes 2 and 5: 5 and 6 are the values of the two objects, attribute 3: = is saying that the operation is equal to (== is also excepted) and attribute 6: 3, is the length of the if statement in lines.
+;if variable 5 = variable 6 3 { ('{' is not necisary)
+;   print string null You typed the same thing twice!
+
+    attribute 2: seconds says that the wait command is taking an int for an input and not a varaiable and attribute 1: 1 is the number of seconds.
+;   wait 1 seconds
+;   print string null I hope ;)
+
+} is the end of an if statement (only necisary for compiling)
+;}
+
+attribute 3: != is saying that the operation is not equal to.
+;if variable 5 != variable 6 3
+;   print string null You did not typed the same thing twice!
+;   wait 1 seconds
+;   print string null I hope ;)
+;}
 
 This doesn't do much because it is at the end of the program, but break ends the program.
 ;break

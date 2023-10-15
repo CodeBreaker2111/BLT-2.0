@@ -56,10 +56,10 @@ def interpret(code):
         if tokenCode[0] == "var":
             if tokenCode[2] == "int":
                 if tokenCode[1] == "not-exists":
-                    data.variables.append(int(tokenCode[4]))
+                    data.variables.append(float(tokenCode[4]))
                 elif tokenCode[1] == "exists":
                     try:
-                        data.variables[int(tokenCode[3])] = int(tokenCode[4])
+                        data.variables[float(tokenCode[3])] = float(tokenCode[4])
                     except IndexError as E:
                         print("\nVariable does not exist. If you meant to create a new variable, set the first attribute to 0.\n")
 
@@ -175,6 +175,50 @@ def interpret(code):
             
             answer = num1 / num2
             data.variables[int(tokenCode[5])] = answer
+        
+        if tokenCode[0] == "if":
+            object1 = 0
+            object2 = 0
+            answer = False
+
+            if tokenCode[1] == "variable":
+                object1 = data.variables[int(tokenCode[2])]
+            
+            if tokenCode[1] == "int":
+                object1 =int(tokenCode[2])
+            
+            if tokenCode[4] == "variable":
+                object2 = data.variables[int(tokenCode[5])]
+            
+            if tokenCode[4] == "int":
+                object2 =int(tokenCode[5])
+            
+            if tokenCode[3] == "=" or tokenCode[3] == "==": # Equal to
+                if object1 == object2:
+                    answer = True
+            
+            if tokenCode[3] == ">": # Greater than
+                if object1 > object2:
+                    answer = True
+            
+            if tokenCode[3] == "<": # Less than
+                if object1 < object2:
+                    answer = True
+            
+            if tokenCode[3] == ">=": # Greater than or equal to
+                if object1 >= object2:
+                    answer = True
+            
+            if tokenCode[3] == "<=": # Less than or equal to
+                if object1 <= object2:
+                    answer = True
+            
+            if tokenCode[3] == "!=": # Not equal to
+                if object1 != object2:
+                    answer = True
+            
+            if answer == False:
+                lineNum += int(tokenCode[6])
         
         lineNum += 1
 

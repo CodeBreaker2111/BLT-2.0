@@ -30,6 +30,9 @@ def read(Ipath, Opath, code):
         compile_cpp(IcodeLines, Opath, True)
 
 def compile_python(IcodeLines, Opath):
+    indentation = 0
+    indent = "    "
+
     Ocode = "import time\n\ndef main():"
 
     variables = []
@@ -51,32 +54,32 @@ def compile_python(IcodeLines, Opath):
                         if iteration >= 4:
                             Print = Print + " " + i
                     
-                    Ocode = Ocode + "\n    print(\"{}\")".format(Print)
+                    Ocode = Ocode + "\n{}    print(\"{}\")".format(indent * indentation, Print)
                 else:
                     if ItokenCode[3] == "\n":
-                        Ocode = Ocode + "\n    print(\"\n\")"
+                        Ocode = Ocode + "\n{}    print(\"\n\")".format(indent * indentation)
             
             if ItokenCode[1] == "variable":
-                Ocode = Ocode + "\n    print({})".format("v" + ItokenCode[3])
+                Ocode = Ocode + "\n{}    print({})".format(indent * indentation, "v" + ItokenCode[3])
         
         if ItokenCode[0] == "wait":
             if ItokenCode[2] == "seconds":
-                Ocode = Ocode + "\n    time.sleep({})".format(ItokenCode[1])
+                Ocode = Ocode + "\n{}    time.sleep({})".format(indent * indentation, ItokenCode[1])
             
             if ItokenCode[1] == "variable":
-                Ocode = Ocode + "\n    time.sleep({})".format("v" + ItokenCode[2])
+                Ocode = Ocode + "\n{}    time.sleep({})".format(indent * indentation, "v" + ItokenCode[2])
         
         if ItokenCode[0] == "var":
             if ItokenCode[2] == "int":
                 if ItokenCode[1] == "not-exists":
                     variables.append(int(ItokenCode[4]))
 
-                    Ocode = Ocode + "\n    v{} = {}".format(len(variables) - 1, ItokenCode[4])
+                    Ocode = Ocode + "\n{}    v{} = {}".format(indent * indentation, len(variables) - 1, ItokenCode[4])
                 elif ItokenCode[1] == "exists":
                     try:
                         variables[int(ItokenCode[3])] = int(ItokenCode[4])
 
-                        Ocode = Ocode + "\n    v{} = {}".format(ItokenCode[3], ItokenCode[4])
+                        Ocode = Ocode + "\n{}    v{} = {}".format(indent * indentation, ItokenCode[3], ItokenCode[4])
                     except IndexError as E:
                         print("\nVariable does not exist. If you meant to create a new variable, set the first attribute to 0.\n")
 
@@ -98,12 +101,12 @@ def compile_python(IcodeLines, Opath):
                     if ItokenCode[1] == "not-exists":
                         variables.append(var)
 
-                        Ocode = Ocode + "\n    v{} = \"{}\"".format(len(variables) - 1, var)
+                        Ocode = Ocode + "\n{}    v{} = \"{}\"".format(indent * indentation, len(variables) - 1, var)
                     elif ItokenCode[1] == "exists":
                         try:
                             variables[int(ItokenCode[3])] = var
 
-                            Ocode = Ocode + "\n    v{} = \"{}\"".format(ItokenCode[3], var)
+                            Ocode = Ocode + "\n{}    v{} = \"{}\"".format(indent * indentation, ItokenCode[3], var)
                         except IndexError as E:
                             print("\nVariable does not exist. If you meant to create a new variable, set the first attribute to 0.\n")
 
@@ -113,7 +116,7 @@ def compile_python(IcodeLines, Opath):
             if ItokenCode[2] == "user-input":
                 if ItokenCode[1] == "not-exists":
                     variables.append("")
-                    Ocode = Ocode + "\n    v{} = input()".format(len(variables) - 1, len(variables) - 1)
+                    Ocode = Ocode + "\n{}    v{} = input()".format(indent * indentation, len(variables) - 1, len(variables) - 1)
                 elif ItokenCode[1] == "exists":
                     try:
                         variables[int(ItokenCode[3])] = input()
@@ -124,14 +127,14 @@ def compile_python(IcodeLines, Opath):
                         return E
         
         if ItokenCode[0] == "break":
-            Ocode = Ocode + "\n    return \"break\""
+            Ocode = Ocode + "\n{}    return \"break\"".format(indent * indentation)
         
         if ItokenCode[0] == "add":
             num1 = 0
             num2 = 0
             answer = 0
 
-            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+            Ocode = Ocode + "\n{}    v{} =".format(indent * indentation, int(ItokenCode[5]))
 
             if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
@@ -157,7 +160,7 @@ def compile_python(IcodeLines, Opath):
             num2 = 0
             answer = 0
 
-            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+            Ocode = Ocode + "\n{}    v{} =".format(indent * indentation, int(ItokenCode[5]))
 
             if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
@@ -183,7 +186,7 @@ def compile_python(IcodeLines, Opath):
             num2 = 0
             answer = 0
 
-            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+            Ocode = Ocode + "\n{}    v{} =".format(indent * indentation, int(ItokenCode[5]))
 
             if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
@@ -209,7 +212,7 @@ def compile_python(IcodeLines, Opath):
             num2 = 0
             answer = 0
 
-            Ocode = Ocode + "\n    v{} =".format(int(ItokenCode[5]))
+            Ocode = Ocode + "\n{}    v{} =".format(indent * indentation, int(ItokenCode[5]))
 
             if ItokenCode[1] == "int":
                 num1 = int(ItokenCode[2])
@@ -229,6 +232,50 @@ def compile_python(IcodeLines, Opath):
             
             answer = num1 / num2
             variables[int(ItokenCode[5])] = answer
+        
+        if ItokenCode[0] == "if":
+            Ocode = Ocode + "\n{}    if ".format(indent * indentation)
+
+            object1 = 0
+            object2 = 0
+            answer = False
+
+            if ItokenCode[1] == "variable":
+                Ocode = Ocode + "v{} ".format(ItokenCode[2])
+            
+            if ItokenCode[1] == "int":
+                Ocode = Ocode + "{} ".format(ItokenCode[2])
+            
+            if ItokenCode[3] == "=" or ItokenCode[3] == "==": # Equal to
+                Ocode = Ocode + "== "
+            
+            if ItokenCode[3] == ">": # Greater than
+                Ocode = Ocode + "> "
+            
+            if ItokenCode[3] == "<": # Less than
+                Ocode = Ocode + "< "
+            
+            if ItokenCode[3] == ">=": # Greater than or equal to
+                Ocode = Ocode + ">= "
+            
+            if ItokenCode[3] == "<=": # Less than or equal to
+                Ocode = Ocode + "<= "
+            
+            if ItokenCode[3] == "!=": # Not equal to
+                Ocode = Ocode + "!= "
+            
+            if ItokenCode[4] == "variable":
+                Ocode = Ocode + "v{}".format(ItokenCode[5])
+            
+            if ItokenCode[4] == "int":
+                Ocode = Ocode + ItokenCode[5]
+            
+            Ocode = Ocode + " :"
+
+            indentation += 1
+        
+        if ItokenCode[0] == "}":
+            indentation -= 1
     
     Ocode = Ocode + "\n\nmain()"
     print("\nResult Code:\n\n" + Ocode)
@@ -236,6 +283,9 @@ def compile_python(IcodeLines, Opath):
     write_file(Opath, Ocode)
 
 def compile_cpp(IcodeLines, Opath, machine_code):
+    indentation = 0
+    indent = "    "
+
     Ocode = "#include <iostream>\n#include <thread>\n#include <chrono>\n#include <string>\n\nusing namespace std;\n\nint main() {"
 
     variables = []
@@ -260,7 +310,7 @@ def compile_cpp(IcodeLines, Opath, machine_code):
                     Ocode = Ocode + "\n    cout << \"{}\" << endl;".format(Print)
                 else:
                     if ItokenCode[2] == "\n":
-                        Ocode = Ocode + "\n    cout << endl;"
+                        Ocode = Ocode + "\n{}    cout << endl;".format(indent * indentation)
             
             if ItokenCode[1] == "variable":
                 if ItokenCode[2] == "to-string":
@@ -446,6 +496,48 @@ def compile_cpp(IcodeLines, Opath, machine_code):
             variables[int(ItokenCode[5])] = answer
 
             Ocode = Ocode + ";"
+        
+        if ItokenCode[0] == "if":
+            Ocode = Ocode + "\n    if "
+
+            object1 = 0
+            object2 = 0
+            answer = False
+
+            if ItokenCode[1] == "variable":
+                Ocode = Ocode + "( v{} ".format(ItokenCode[2])
+            
+            if ItokenCode[1] == "int":
+                Ocode = Ocode + "( {} ".format(ItokenCode[2])
+            
+            if ItokenCode[3] == "=" or ItokenCode[3] == "==": # Equal to
+                Ocode = Ocode + "== "
+            
+            if ItokenCode[3] == ">": # Greater than
+                Ocode = Ocode + "> "
+            
+            if ItokenCode[3] == "<": # Less than
+                Ocode = Ocode + "< "
+            
+            if ItokenCode[3] == ">=": # Greater than or equal to
+                Ocode = Ocode + ">= "
+            
+            if ItokenCode[3] == "<=": # Less than or equal to
+                Ocode = Ocode + "<= "
+            
+            if ItokenCode[3] == "!=": # Not equal to
+                Ocode = Ocode + "!= "
+            
+            if ItokenCode[4] == "variable":
+                Ocode = Ocode + "v{}".format(ItokenCode[5])
+            
+            if ItokenCode[4] == "int":
+                Ocode = Ocode + ItokenCode[5]
+            
+            Ocode = Ocode + " ) {"
+        
+        if ItokenCode[0] == "}":
+            Ocode = Ocode + "\n    }"
     
     Ocode = Ocode + "\n}"
 
